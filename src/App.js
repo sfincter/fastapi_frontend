@@ -23,11 +23,16 @@ function App() {
 
   const setupWebSocket = () => {
     const socket = new WebSocket('wss://fastapi-lovat-pi.vercel.app/ws');
+  
+    socket.onopen = () => console.log("✅ WebSocket открыт");
     socket.onmessage = (event) => {
-      const updatedData = JSON.parse(event.data);
-      setData(updatedData);
+      console.log("📩 Получены новые данные:", event.data);
+      setData(JSON.parse(event.data)); // Обновляем состояние
     };
+    socket.onerror = (error) => console.error("❌ Ошибка WebSocket:", error);
+    socket.onclose = () => console.warn("⚠️ WebSocket закрыт, пробуем переподключиться...");
   };
+  
 
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
