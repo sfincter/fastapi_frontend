@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, Table, Form, Input, notification, Dropdown, Space  } from 'antd';  // Импортируем компоненты из Ant Design
+import { Button, Table, Form, Input, notification, Select } from 'antd';  // Импортируем компоненты из Ant Design
 import { UserOutlined, ContactsOutlined } from '@ant-design/icons';
 
 function App() {
@@ -43,32 +43,12 @@ function App() {
     }
   };
 
-  const items = [
-    {
-      key: '1',
-      label: (
-        <a target="_blank" rel="noopener noreferrer">
-          Психолог
-        </a>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <a target="_blank" rel="noopener noreferrer">
-          Психотерапевт
-        </a>
-      ),
-    },
-    {
-      key: '3',
-      label: (
-        <a target="_blank" rel="noopener noreferrer">
-          Доктор медицинских наук
-        </a>
-      ),
-    },
-  ];
+  const onChange = (value) => {
+    console.log(`selected ${value}`);
+  };
+  const onSearch = (value) => {
+    console.log('search:', value);
+  };
 
   const columns = [
     { title: 'Роль', dataIndex: 'role', key: 'role' },
@@ -95,19 +75,27 @@ function App() {
           name="role"
           rules={[{ required: true, message: 'Пожалуйста, введите роль' }]}
         >
-          <Space direction="vertical">
-            <Space wrap>
-              <Dropdown
-                menu={{
-                  items,
-                }}
-                placement="bottomLeft"
-                arrow
-              >
-                <Button>Психолог</Button>
-              </Dropdown>
-            </Space>
-          </Space>
+          <Select
+            showSearch
+            placeholder="Select a person"
+            optionFilterProp="label"
+            onChange={onChange}
+            onSearch={onSearch}
+            options={[
+              {
+                value: 'jack',
+                label: 'Jack',
+              },
+              {
+                value: 'lucy',
+                label: 'Lucy',
+              },
+              {
+                value: 'tom',
+                label: 'Tom',
+              },
+            ]}
+          />
         </Form.Item>
 
         <Form.Item
