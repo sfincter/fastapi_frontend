@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, Table, Form, Input, notification, FloatButton } from 'antd';  // Импортируем компоненты из Ant Design
+import { Button, Table, Form, Input, notification,  } from 'antd';  // Импортируем компоненты из Ant Design
+import { UserOutlined, ContactsOutlined } from '@ant-design/icons';
 
 function App() {
   const [data, setData] = useState([]);  // Данные о специалистах
@@ -52,9 +53,9 @@ function App() {
     <div className="App">
       <h1>React App with FastAPI</h1>
 
-      <FloatButton icon='+' type="primary" onClick={fetchData} style={{ marginBottom: '20px' }}>
+      <Button type="primary" onClick={fetchData} style={{ marginBottom: '20px' }}>
         Показать всех специалистов
-      </FloatButton>
+      </Button>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {responseMessage && <p>{responseMessage}</p>}
@@ -72,6 +73,9 @@ function App() {
             name="role"
             value={user.role}
             onChange={handleInputChange}
+            size="large" 
+            placeholder="Введите роль" 
+            prefix={<UserOutlined />}
           />
         </Form.Item>
 
@@ -85,6 +89,9 @@ function App() {
             name="name"
             value={user.name}
             onChange={handleInputChange}
+            size="large" 
+            placeholder="Введите имя" 
+            prefix={<UserOutlined />}
           />
         </Form.Item>
 
@@ -98,6 +105,9 @@ function App() {
             name="email"
             value={user.email}
             onChange={handleInputChange}
+            size="large" 
+            placeholder="Введите емаил" 
+            prefix={<ContactsOutlined />}
           />
         </Form.Item>
 
