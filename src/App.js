@@ -52,7 +52,7 @@ function App() {
     <div className="App">
       <h1>React App with FastAPI</h1>
 
-      <FloatButton type="primary" onClick={fetchData} style={{ marginBottom: '20px' }}>
+      <FloatButton icon='+' type="primary" onClick={fetchData} style={{ marginBottom: '20px' }}>
         Показать всех специалистов
       </FloatButton>
 
