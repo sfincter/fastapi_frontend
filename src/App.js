@@ -12,7 +12,7 @@ function App() {
       const response = await axios.get('https://fastapi-lovat-pi.vercel.app/specialists');
       setData(response.data);
     } catch (err) {
-      setError('Error fetching data');
+      setError('Пользователь не добавлен');
     }
   };
 
