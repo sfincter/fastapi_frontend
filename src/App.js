@@ -2,34 +2,45 @@ import React, { useState, useEffect } from 'react';
 
 function App() {
   const [data, setData] = useState([]);
-  const [error, setError] = useState(null);
+  const [message, setMessage] = useState('');
 
+  // Функция для получения данных через Long Polling
+  const fetchData = async () => {
+    const response = await fetch('https://fastapi-lovat-pi.vercel.app/long-poll');
+    const result = await response.json();
+    setData(result.specialists); // Обновляем данные
+  };
+
+  // Эффект для периодической отправки запроса
   useEffect(() => {
-    const eventSource = new EventSource('https://fastapi-lovat-pi.vercel.app/events');
+    // Инициализируем начальную загрузку
+    fetchData();
 
-    eventSource.onmessage = function (event) {
-      setData(JSON.parse(event.data)); // Обновляем данные при получении события
-    };
+    const interval = setInterval(fetchData, 10000); // Запрашиваем данные каждые 10 секунд
 
-    eventSource.onerror = function (error) {
-      console.error("Ошибка SSE:", error);
-      setError('Ошибка при получении данных');
-    };
-
-    return () => {
-      eventSource.close(); // Закрываем соединение при размонтировании компонента
-    };
+    return () => clearInterval(interval); // Очищаем интервал при размонтировании
   }, []);
 
+  // Функция для добавления нового специалиста
+  const addSpecialist = async () => {
+    await fetch('https://fastapi-lovat-pi.vercel.app/specialists', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: 'Петр', role: 'Психолог' })
+    });
+    setMessage('Специалист добавлен!');
+  };
+
   return (
-    <div className="App">
+    <div>
       <h1>Specialists</h1>
-      {error && <p>{error}</p>}
       <ul>
         {data.map((specialist) => (
-          <li key={specialist.id}>{specialist.name}</li>
+          <li key={specialist.id}>{specialist.name} - {specialist.role}</li>
         ))}
       </ul>
+      <button onClick={addSpecialist}>Добавить специалиста</button>
+      {message && <p>{message}</p>}
     </div>
   );
 }
