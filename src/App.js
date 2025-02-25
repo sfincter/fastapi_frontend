@@ -14,7 +14,7 @@ function App() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/specialists');
+      const response = await axios.get('https://fastapi-lovat-pi.vercel.app/specialists');
       setData(response.data);
     } catch (err) {
       setError('Ошибка при загрузке данных');
@@ -22,7 +22,7 @@ function App() {
   };
 
   const setupWebSocket = () => {
-    const socket = new WebSocket('ws://localhost:8000/ws');
+    const socket = new WebSocket('ws:https://fastapi-lovat-pi.vercel.app/ws');
     socket.onmessage = (event) => {
       const updatedData = JSON.parse(event.data);
       setData(updatedData);
@@ -36,7 +36,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/specialists', user);
+      const response = await axios.post('https://fastapi-lovat-pi.vercel.app/specialists', user);
       setResponseMessage(response.data.message);
     } catch (err) {
       setError('Ошибка при добавлении специалиста');
