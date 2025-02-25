@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, Table, Form, Input, notification } from 'antd';  // Импортируем компоненты из Ant Design
+import { Button, Table, Form, Input, notification, FloatButton } from 'antd';  // Импортируем компоненты из Ant Design
 
 function App() {
   const [data, setData] = useState([]);  // Данные о специалистах
@@ -52,9 +52,9 @@ function App() {
     <div className="App">
       <h1>React App with FastAPI</h1>
 
-      <Button type="primary" onClick={fetchData} style={{ marginBottom: '20px' }}>
+      <FloatButton type="primary" onClick={fetchData} style={{ marginBottom: '20px' }}>
         Показать всех специалистов
-      </Button>
+      </FloatButton>
 
       {error && <p style={{ color: 'red' }}>{error}</p>}
       {responseMessage && <p>{responseMessage}</p>}
