@@ -24,10 +24,9 @@ function App() {
   };
 
   // Функция для отправки данных на сервер
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (values) => {
     try {
-      const response = await axios.post('https://fastapi-lovat-pi.vercel.app/specialists', user);
+      const response = await axios.post('https://fastapi-lovat-pi.vercel.app/specialists', values);
       setResponseMessage(response.data.message);
       notification.success({
         message: 'Успех',
@@ -63,7 +62,11 @@ function App() {
       {/* Форма добавления нового специалиста */}
       <Form onFinish={handleSubmit} style={{ marginBottom: '20px' }}>
         <h2>Добавить специалиста</h2>
-        <Form.Item label="Роль" name="role" rules={[{ required: true, message: 'Пожалуйста, введите роль' }]}>
+        <Form.Item
+          label="Роль"
+          name="role"
+          rules={[{ required: true, message: 'Пожалуйста, введите роль' }]}
+        >
           <Input
             type="text"
             name="role"
@@ -72,7 +75,11 @@ function App() {
           />
         </Form.Item>
 
-        <Form.Item label="Имя" name="name" rules={[{ required: true, message: 'Пожалуйста, введите имя' }]}>
+        <Form.Item
+          label="Имя"
+          name="name"
+          rules={[{ required: true, message: 'Пожалуйста, введите имя' }]}
+        >
           <Input
             type="text"
             name="name"
@@ -81,7 +88,11 @@ function App() {
           />
         </Form.Item>
 
-        <Form.Item label="Email" name="email" rules={[{ required: true, message: 'Пожалуйста, введите email' }]}>
+        <Form.Item
+          label="Email"
+          name="email"
+          rules={[{ required: true, message: 'Пожалуйста, введите email' }]}
+        >
           <Input
             type="email"
             name="email"
