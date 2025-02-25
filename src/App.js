@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, Table, Form, Input, notification,  } from 'antd';  // Импортируем компоненты из Ant Design
-import { UserOutlined, ContactsOutlined } from '@ant-design/icons';
+import { Button, Table, Form, Input, notification, Dropdown, Space  } from 'antd';  // Импортируем компоненты из Ant Design
+import { UserOutlined, ContactsOutlined, DownOutlined, SettingOutlined } from '@ant-design/icons';
 
 function App() {
   const [data, setData] = useState([]);  // Данные о специалистах
@@ -43,6 +43,33 @@ function App() {
     }
   };
 
+  const items = [
+    {
+      key: '1',
+      label: 'My Account',
+      disabled: true,
+    },
+    {
+      type: 'divider',
+    },
+    {
+      key: '2',
+      label: 'Profile',
+      extra: '⌘P',
+    },
+    {
+      key: '3',
+      label: 'Billing',
+      extra: '⌘B',
+    },
+    {
+      key: '4',
+      label: 'Settings',
+      icon: <SettingOutlined />,
+      extra: '⌘S',
+    },
+  ];
+
   const columns = [
     { title: 'Роль', dataIndex: 'role', key: 'role' },
     { title: 'Имя', dataIndex: 'name', key: 'name' },
@@ -68,15 +95,18 @@ function App() {
           name="role"
           rules={[{ required: true, message: 'Пожалуйста, введите роль' }]}
         >
-          <Input
-            type="text"
-            name="role"
-            value={user.role}
-            onChange={handleInputChange}
-            size="large" 
-            placeholder="Введите роль" 
-            prefix={<UserOutlined />}
-          />
+          <Dropdown
+            menu={{
+              items,
+            }}
+          >
+            <a onClick={(e) => e.preventDefault()}>
+              <Space>
+                Hover me
+                <DownOutlined />
+              </Space>
+            </a>
+          </Dropdown>
         </Form.Item>
 
         <Form.Item
