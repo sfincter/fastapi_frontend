@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Table, Form, Input, notification, Select, Skeleton } from 'antd';
-import { UserOutlined, ContactsOutlined } from '@ant-design/icons';
+import { Button, Table, Form, Input, notification, Select, Skeleton, Popconfirm } from 'antd';
+import { UserOutlined, ContactsOutlined, DeleteOutlined } from '@ant-design/icons';
 import axios from 'axios';
 
 function App() {
@@ -27,6 +27,17 @@ function App() {
     fetchData(); // Загружаем данные при старте
   }, []);
 
+  // Функция удаления специалиста
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`https://fastapi-lovat-pi.vercel.app/specialists/${id}`);
+      notification.success({ message: 'Специалист удален' });
+      fetchData(); // Обновляем список
+    } catch (err) {
+      notification.error({ message: 'Ошибка при удалении специалиста' });
+    }
+  };
+
   // Обработчик изменения данных в форме
   const handleInputChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -37,17 +48,11 @@ function App() {
     try {
       const response = await axios.post('https://fastapi-lovat-pi.vercel.app/specialists', values);
       setResponseMessage(response.data.message);
-      notification.success({
-        message: 'Успех',
-        description: response.data.message,
-      });
+      notification.success({ message: 'Успех', description: response.data.message });
       fetchData(); // Обновить список специалистов
     } catch (err) {
       setError('Ошибка при добавлении специалиста, домен почты должен заканчиваться на @dbtplus.ru');
-      notification.error({
-        message: 'Ошибка',
-        description: 'Ошибка при добавлении специалиста, домен почты должен заканчиваться на @dbtplus.ru',
-      });
+      notification.error({ message: 'Ошибка', description: 'Ошибка при добавлении специалиста' });
     }
   };
 
@@ -55,6 +60,20 @@ function App() {
     { title: 'Роль', dataIndex: 'role', key: 'role' },
     { title: 'Имя', dataIndex: 'name', key: 'name' },
     { title: 'Email', dataIndex: 'email', key: 'email' },
+    {
+      title: 'Действия',
+      key: 'actions',
+      render: (text, record) => (
+        <Popconfirm
+          title="Удалить специалиста?"
+          onConfirm={() => handleDelete(record.id)}
+          okText="Да"
+          cancelText="Нет"
+        >
+          <Button type="primary" danger icon={<DeleteOutlined />} />
+        </Popconfirm>
+      ),
+    },
   ];
 
   return (
