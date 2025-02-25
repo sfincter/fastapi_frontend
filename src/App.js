@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Table, Form, Input, notification, Dropdown, Space  } from 'antd';  // Импортируем компоненты из Ant Design
-import { UserOutlined, ContactsOutlined, DownOutlined, SettingOutlined } from '@ant-design/icons';
+import { UserOutlined, ContactsOutlined } from '@ant-design/icons';
 
 function App() {
   const [data, setData] = useState([]);  // Данные о специалистах
@@ -46,27 +46,27 @@ function App() {
   const items = [
     {
       key: '1',
-      label: 'My Account',
-      disabled: true,
-    },
-    {
-      type: 'divider',
+      label: (
+        <a target="_blank" rel="noopener noreferrer">
+          Психолог
+        </a>
+      ),
     },
     {
       key: '2',
-      label: 'Profile',
-      extra: '⌘P',
+      label: (
+        <a target="_blank" rel="noopener noreferrer">
+          Психотерапевт
+        </a>
+      ),
     },
     {
       key: '3',
-      label: 'Billing',
-      extra: '⌘B',
-    },
-    {
-      key: '4',
-      label: 'Settings',
-      icon: <SettingOutlined />,
-      extra: '⌘S',
+      label: (
+        <a target="_blank" rel="noopener noreferrer">
+          Доктор медицинских наук
+        </a>
+      ),
     },
   ];
 
@@ -95,18 +95,19 @@ function App() {
           name="role"
           rules={[{ required: true, message: 'Пожалуйста, введите роль' }]}
         >
-          <Dropdown
-            menu={{
-              items,
-            }}
-          >
-            <a onClick={(e) => e.preventDefault()}>
-              <Space>
-                Hover me
-                <DownOutlined />
-              </Space>
-            </a>
-          </Dropdown>
+          <Space direction="vertical">
+            <Space wrap>
+              <Dropdown
+                menu={{
+                  items,
+                }}
+                placement="bottomLeft"
+                arrow
+              >
+                <Button>Психолог</Button>
+              </Dropdown>
+            </Space>
+          </Space>
         </Form.Item>
 
         <Form.Item
