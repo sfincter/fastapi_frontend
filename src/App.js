@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Button, Table, Form, Input, notification, Select } from 'antd';  // Импортируем компоненты из Ant Design
+import { Button, Table, Form, Input, notification, Select, Skeleton  } from 'antd';  // Импортируем компоненты из Ant Design
 import { UserOutlined, ContactsOutlined } from '@ant-design/icons';
 
+
+const App = () => <Skeleton active />;
 function App() {
   const [data, setData] = useState([]);  // Данные о специалистах
   const [user, setUser] = useState({ role: '', name: '', email: '' });  // Данные нового специалиста
