@@ -77,22 +77,30 @@ function App() {
         >
           <Select
             showSearch
-            placeholder="Select a person"
+            placeholder="Выберите роль специалиста"
             optionFilterProp="label"
             onChange={onChange}
             onSearch={onSearch}
             options={[
               {
-                value: 'jack',
-                label: 'Jack',
+                value: 'Психолог',
+                label: 'Психолог',
               },
               {
-                value: 'lucy',
-                label: 'Lucy',
+                value: 'Психотерапевт',
+                label: 'Психотерапевт',
               },
               {
-                value: 'tom',
-                label: 'Tom',
+                value: 'Доктор медицинских наук',
+                label: 'Доктор медицинских наук',
+              },
+              {
+                value: 'Доцент',
+                label: 'Доцент',
+              },
+              {
+                value: 'Врач-психотерапевт',
+                label: 'Врач-психотерапевт',
               },
             ]}
           />
