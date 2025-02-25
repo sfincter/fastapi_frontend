@@ -34,13 +34,13 @@ function App() {
   return (
     <div className="App">
       <h1>React App with FastAPI</h1>
-      <button onClick={fetchData}>Fetch Data</button>
+      <button onClick={fetchData}>Показать всех специалистов</button>
 
       {error && <p>{error}</p>}
       {responseMessage && <p>{responseMessage}</p>}
 
       <form onSubmit={handleSubmit}>
-        <h2>Add New Specialist</h2>
+        <h2>Добавить специалиста</h2>
         <label>
           Role:
           <input
@@ -71,17 +71,17 @@ function App() {
           />
         </label>
         <br />
-        <button type="submit">Add Specialist</button>
+        <button type="submit">Добавить специалиста</button>
       </form>
 
       {data && (
         <div>
-          <h2>Specialists List</h2>
+          <h2>Специалисты:</h2>
           <table border="1" style={{ marginTop: '20px', width: '100%' }}>
             <thead>
               <tr>
-                <th>Role</th>
-                <th>Name</th>
+                <th>Роль</th>
+                <th>Имя</th>
                 <th>Email</th>
               </tr>
             </thead>
