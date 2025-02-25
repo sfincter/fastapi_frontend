@@ -22,7 +22,7 @@ function App() {
   };
 
   const setupWebSocket = () => {
-    const socket = new WebSocket('ws:https://fastapi-lovat-pi.vercel.app/ws');
+    const socket = new WebSocket('https://fastapi-lovat-pi.vercel.app/ws');
     socket.onmessage = (event) => {
       const updatedData = JSON.parse(event.data);
       setData(updatedData);
